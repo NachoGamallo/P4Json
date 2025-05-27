@@ -1,0 +1,40 @@
+[
+  {
+    "name": "a",
+    "platform": "a",
+    "price": 20.0,
+    "available": true,
+    "genders": [
+      "a"
+    ]
+  },
+  {
+    "name": "a",
+    "platform": "b",
+    "price": 30.0,
+    "available": false,
+    "genders": [
+      "df",
+      "fd"
+    ]
+  },
+  {
+    "name": "aosdasjd",
+    "platform": "sdadk",
+    "price": 100.0,
+    "available": true,
+    "genders": [
+      "asd"
+    ]
+  },
+  {
+    "name": "Mondongo",
+    "platform": "mondongo",
+    "price": 12.0,
+    "available": true,
+    "genders": [
+      "as",
+      "as"
+    ]
+  }
+]

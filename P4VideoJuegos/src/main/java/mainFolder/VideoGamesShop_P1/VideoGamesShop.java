@@ -1,5 +1,13 @@
 package mainFolder.VideoGamesShop_P1;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +21,35 @@ public class VideoGamesShop {
 
     public static void main(String[] args) {
 
+        Gson json = new GsonBuilder().setPrettyPrinting().create();
 
+        //A
+        for (int i = 0; i < 3; i++) {
+
+            System.out.println("Introduce los datos del videojuego " + (i + 1) + ":");
+            videoGamesList.add(createGame());
+
+        }
+
+        //B
+        Serialize(videoGamesList,json);
+
+        //C
+        List<VideoGame> videoGamesToRead = DesSerialize(json);
+        System.out.println("\nVideojuegos leídos desde JSON:");
+        System.out.println(json.toJson(videoGamesToRead));
+
+        //E
+        System.out.println("\nIntroduce un nuevo videojuego:");
+        videoGamesToRead.add(createGame());
+
+        //F
+        System.out.println("\nVideojuegos con precio menor a 30€:");
+        videoGamesToRead.stream()
+                .filter(v -> v.getPrice() < 30.00)
+                .forEach(System.out::println);
+
+        Serialize(videoGamesToRead,json);
 
     }
 
@@ -24,12 +60,42 @@ public class VideoGamesShop {
         System.out.print("Plataforma: ");
         String platform = entry.nextLine();
         System.out.print("Precio: ");
-        double price = entry.nextDouble();
-        System.out.print("¿Disponible? (true/false): ");
-        boolean available = entry.hasNext();
+        double price = Double.parseDouble(entry.nextLine());
+        System.out.print("Disponible? (true/false): ");
+        boolean available = Boolean.parseBoolean(entry.nextLine());
         System.out.print("Géneros (separados por coma): ");
         List<String> genders = Arrays.asList(entry.nextLine().split(",\\s*"));
         return new VideoGame(name, platform, price, available, genders);
 
+    }
+
+    private static void Serialize(List<VideoGame> list, Gson gson) {
+
+        try (FileWriter writer = new FileWriter(FILE_NAME)) {
+
+            gson.toJson(list, writer);
+            System.out.println("\nLista guardada en " + FILE_NAME);
+
+        } catch (IOException e) {
+
+            System.out.println("Error al guardar JSON.");
+            e.printStackTrace();
+
+        }
+    }
+
+    private static List<VideoGame> DesSerialize(Gson gson) {
+
+        try (FileReader reader = new FileReader(FILE_NAME)) {
+
+            Type listType = new TypeToken <List <VideoGame> >() {}.getType();
+            return gson.fromJson(reader, listType);
+
+        } catch (IOException e) {
+
+            System.out.println("Error al leer JSON. Devolviendo lista vacía.");
+            return new ArrayList<>();
+
+        }
     }
 }
