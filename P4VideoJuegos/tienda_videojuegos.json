@@ -1,40 +1,38 @@
 [
   {
-    "name": "a",
-    "platform": "a",
+    "name": "hola",
+    "platform": "hola",
     "price": 20.0,
     "available": true,
     "genders": [
-      "a"
+      "hola"
     ]
   },
   {
-    "name": "a",
-    "platform": "b",
-    "price": 30.0,
+    "name": "adios",
+    "platform": "adios",
+    "price": 50.0,
+    "available": true,
+    "genders": [
+      "adios"
+    ]
+  },
+  {
+    "name": "mondongo",
+    "platform": "mondongo",
+    "price": 1.0,
     "available": false,
     "genders": [
-      "df",
-      "fd"
+      "mondongo"
     ]
   },
   {
-    "name": "aosdasjd",
-    "platform": "sdadk",
-    "price": 100.0,
-    "available": true,
+    "name": "ruperto",
+    "platform": "ruperto",
+    "price": 20.0,
+    "available": false,
     "genders": [
-      "asd"
-    ]
-  },
-  {
-    "name": "Mondongo",
-    "platform": "mondongo",
-    "price": 12.0,
-    "available": true,
-    "genders": [
-      "as",
-      "as"
+      "tumama"
     ]
   }
 ]

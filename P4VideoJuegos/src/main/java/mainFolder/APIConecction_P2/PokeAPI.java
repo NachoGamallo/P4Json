@@ -14,38 +14,38 @@ import java.util.Scanner;
 
 public class PokeAPI {
 
-    private static final String BASE_URL = "https://pokeapi.co/api/v2/pokemon";
+    private static final String BASE_URL = "https://pokeapi.co/api/v2/pokemon";//Lista de los pokemons.
     static Scanner entry = new Scanner(System.in);
 
     public static void main(String[] args) {
 
-        HttpClient client = HttpClient.newHttpClient();
+        HttpClient client = HttpClient.newHttpClient();//Conexion con HTTP
         Gson json = new GsonBuilder().setPrettyPrinting().create();
 
         try {
             HttpRequest listRequest = HttpRequest.newBuilder()
                     .uri(URI.create(BASE_URL + "?limit=20"))
-                    .build();
+                    .build();//Ponemos un limite de 20 pokemons.
 
-            HttpResponse<String> listResponse = client.send(listRequest, HttpResponse.BodyHandlers.ofString());
-            JsonObject jsonList = JsonParser.parseString(listResponse.body()).getAsJsonObject();
+            HttpResponse<String> listResponse = client.send(listRequest, HttpResponse.BodyHandlers.ofString());//Cogemos los datos de la API
+            JsonObject jsonList = JsonParser.parseString(listResponse.body()).getAsJsonObject();//Contruimos un json, para luego filtrar por parametros.
 
             System.out.println("Pokémons disponibles:");
 
             jsonList.getAsJsonArray("results").forEach(p -> {
                 JsonObject pokeObj = p.getAsJsonObject();
                 System.out.print(" - " + pokeObj.get("name").getAsString());
-            });
+            });//Hacemos un foreach, para recorrer el json y coger el nombre de los pokemons.
 
             System.out.println("\n");
 
             System.out.print("Introduce el nombre del Pokémon que quieres buscar: ");
-            String pokemonName = entry.nextLine().toLowerCase();
+            String pokemonName = entry.nextLine().toLowerCase();//El usuario filtra que pokemon quiere ver.
 
             try {
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(BASE_URL + "/" + pokemonName))
-                        .build();
+                        .build();//Contruimos otra conexion con la API pero apartir de nuestro pokemon.
 
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
